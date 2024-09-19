@@ -6,19 +6,24 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ContentView: View {
+    @StateObject var authService = AuthService()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Group {
+            if authService.isUserSignedIn {
+                TabBarView()
+            } else {
+                NavigationView {
+                    LoginView()
+                        .navigationTitle("Login")
+                }
+            }
         }
-        .padding()
+        .onAppear {
+        
+        }
     }
-}
-
-#Preview {
-    ContentView()
 }
